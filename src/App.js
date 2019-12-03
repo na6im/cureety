@@ -66,6 +66,7 @@ class App extends React.Component {
       );
     } else {
       const list = effects.map(x => x.label.toLowerCase());
+      let Letter = list[0][0].toLowerCase();
       return (
         <Conatiner>
           <Header>
@@ -74,12 +75,17 @@ class App extends React.Component {
           <Box>
             {effects.map((effect, index) => {
               return (
-                <EffectItem
-                  item={effect}
-                  index={index}
-                  onUpdateFunction={this.onUpdateFunction}
-                  list={list}
-                />
+                <div>
+                  {Letter !== effect.label[0].toUpperCase()
+                    ? (Letter = effect.label[0].toUpperCase())
+                    : null}
+                  <EffectItem
+                    item={effect}
+                    index={index}
+                    onUpdateFunction={this.onUpdateFunction}
+                    list={list}
+                  />
+                </div>
               );
             })}
           </Box>

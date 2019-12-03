@@ -19,6 +19,7 @@ export const Box = styled.div`
   justify-content: center;
   border-radius: 25px;
   padding: 2em 5em;
+  color: black;
 `;
 
 export const Header = styled.div`
@@ -41,7 +42,7 @@ const jump = keyframes`
     }
   100% {
       transform: translate(0,0);
-          }
+        }
   `;
 
 export const LogoIcon = styled.img`
