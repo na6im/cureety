@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   Conatiner,
   TextInput,
@@ -18,7 +18,7 @@ export default function EffectItem({ item, index, list, onUpdateFunction }) {
   const [editMode, setEditMode] = useState(false);
   const [label, setLabel] = useState(item.label);
   const [error, setError] = useState(null);
-
+  const inputRef = useRef(null);
   function mouseOver() {
     setHover(!hover);
   }
@@ -35,6 +35,11 @@ export default function EffectItem({ item, index, list, onUpdateFunction }) {
     }
   }
 
+  async function setToEditMode() {
+    await setEditMode(!editMode);
+    inputRef.current.focus();
+  }
+
   return (
     <Conatiner
       onMouseEnter={mouseOver}
@@ -47,6 +52,10 @@ export default function EffectItem({ item, index, list, onUpdateFunction }) {
         <TextInput
           value={editMode ? label : effect}
           disabled={!editMode}
+          ref={inputRef}
+          onMouseEnter={() => {
+            inputRef.current.focus();
+          }}
           onChange={text => {
             setLabel(text.target.value);
             setError(null);
@@ -76,7 +85,7 @@ export default function EffectItem({ item, index, list, onUpdateFunction }) {
           if (editMode) {
             validateField(label);
           } else {
-            setEditMode(!editMode);
+            setToEditMode();
           }
         }}
       />
