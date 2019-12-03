@@ -1,8 +1,8 @@
 import React from 'react';
 import axios from 'axios';
+import EffectItem from './EffectItem';
 import { Conatiner, Box, Header } from './styles';
 import logo from './logo-cureety.svg';
-import EffectItem from './EffectItem';
 
 class App extends React.Component {
   state = {
@@ -26,7 +26,14 @@ class App extends React.Component {
     localStorage.setItem('effects', JSON.stringify(data));
   };
 
-  static compare(a, b) {
+  onUpdateFunction = (effect, index) => {
+    const newEffects = this.state.effects;
+    newEffects[index].label = effect;
+    this.setState({ effects: newEffects.sort(this.compare) });
+    localStorage.setItem('effects', JSON.stringify(this.state.effects));
+  };
+
+  compare(a, b) {
     if (a.label.toLowerCase() < b.label.toLowerCase()) {
       return -1;
     }
@@ -48,6 +55,7 @@ class App extends React.Component {
     if (effects === null) {
       return <Conatiner>Loading...</Conatiner>;
     } else {
+      const list = effects.map(x => x.label.toLowerCase());
       return (
         <Conatiner>
           <Header>
@@ -55,7 +63,14 @@ class App extends React.Component {
           </Header>
           <Box>
             {effects.map((effect, index) => {
-              return <EffectItem item={effect} index={index} />;
+              return (
+                <EffectItem
+                  item={effect}
+                  index={index}
+                  onUpdateFunction={this.onUpdateFunction}
+                  list={list}
+                />
+              );
             })}
           </Box>
         </Conatiner>

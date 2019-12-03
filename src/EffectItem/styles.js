@@ -5,6 +5,7 @@ export const Conatiner = styled.div`
   flex: 1 1 100%;
   width: 55%;
   min-width: 500px;
+  justify-content: space-between;
   cursor: pointer;
   padding: 0.4em;
   margin: 0.5em;
@@ -12,7 +13,7 @@ export const Conatiner = styled.div`
   font-size: 20px;
   align-items: center;
   background: linear-gradient(to right, #6fd4e2 0%, #8bc2c9 100%);
-  transform: ${props => (props.hover ? 'scale(1.25)' : null)};
+  transform: ${props => (props.hover || props.edit ? 'scale(1.25)' : null)};
   transition: ease 0.5s;
 `;
 
@@ -36,6 +37,13 @@ export const TextInput = styled.input`
   &:focus {
     outline: none;
   }
+
+  &:disabled {
+    color: black;
+  }
+  &:hover {
+    cursor: ${props => (!props.edit ? 'pointer' : 'text')};
+  }
 `;
 export const InputContainer = styled.div`
   flex: 1;
@@ -51,4 +59,9 @@ export const Icon = styled.img`
   &:hover {
     border: solid 1px white;
   }
+`;
+
+export const ErrorText = styled.div`
+  font-size: x-small;
+  color: red;
 `;
