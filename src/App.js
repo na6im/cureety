@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { Conatiner, Box, Header } from './styles';
 import logo from './logo-cureety.svg';
+import EffectItem from './EffectItem';
 
 class App extends React.Component {
   state = {
@@ -52,7 +53,11 @@ class App extends React.Component {
           <Header>
             <img src={logo} alt="logo" />
           </Header>
-          <Box />
+          <Box>
+            {effects.map((effect, index) => {
+              return <EffectItem item={effect} index={index} />;
+            })}
+          </Box>
         </Conatiner>
       );
     }
