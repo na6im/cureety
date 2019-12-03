@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Conatiner, TextInput, InputContainer } from './styles';
+import { Conatiner, TextInput, InputContainer, Icon } from './styles';
+import edit from './edit.svg';
+import checkmark from './checkmark.svg';
 
 export default function EffectItem({ item }) {
   const effect =
@@ -7,6 +9,7 @@ export default function EffectItem({ item }) {
 
   const [label, setLabel] = useState(item.label);
   const [hover, setHover] = useState(false);
+  const [editMode, setEditMode] = useState(false);
 
   function mouseOver() {
     setHover(!hover);
@@ -17,15 +20,28 @@ export default function EffectItem({ item }) {
       onMouseLeave={mouseOver}
       title={item.label}
       hover={hover}
+      edit={editMode}
     >
       <InputContainer>
         <TextInput
-          value={effect}
+          value={editMode ? label : effect}
+          disabled={!editMode}
           onChange={text => {
             setLabel(text.target.value);
           }}
         />
       </InputContainer>
+      <Icon
+        src={editMode ? checkmark : edit}
+        alt="edit"
+        hover={hover}
+        edit={editMode}
+        onClick={() => {
+          if (!editMode) {
+            setEditMode(!editMode);
+          }
+        }}
+      />
     </Conatiner>
   );
 }

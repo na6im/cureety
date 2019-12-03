@@ -42,3 +42,13 @@ export const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
 `;
+
+export const Icon = styled.img`
+  display: ${props => (props.hover || props.edit ? 'flex' : 'none')};
+  padding: 5px;
+  height: 1em;
+  border-radius: 4px;
+  &:hover {
+    border: solid 1px white;
+  }
+`;
