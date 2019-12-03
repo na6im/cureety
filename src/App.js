@@ -20,9 +20,20 @@ class App extends React.Component {
     const { data } = await axios.get(
       `https://app.development.staging.cureety.com/api/v1/api/side_effects?access_token=${id}`,
     );
+    data.sort(this.compare);
     this.setState({ effects: data });
     localStorage.setItem('effects', JSON.stringify(data));
   };
+
+  static compare(a, b) {
+    if (a.label.toLowerCase() < b.label.toLowerCase()) {
+      return -1;
+    }
+    if (a.label.toLowerCase() > b.label.toLowerCase()) {
+      return 1;
+    }
+    return 0;
+  }
 
   componentDidMount() {
     const { token, effects } = this.state;
@@ -32,14 +43,19 @@ class App extends React.Component {
   }
 
   render() {
-    return (
-      <Conatiner>
-        <Header>
-          <img src={logo} alt="logo" />
-        </Header>
-        <Box />
-      </Conatiner>
-    );
+    const { effects } = this.state;
+    if (effects === null) {
+      return <Conatiner>Loading...</Conatiner>;
+    } else {
+      return (
+        <Conatiner>
+          <Header>
+            <img src={logo} alt="logo" />
+          </Header>
+          <Box />
+        </Conatiner>
+      );
+    }
   }
 }
 
