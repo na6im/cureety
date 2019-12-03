@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import EffectItem from './EffectItem';
-import { Conatiner, Box, Header } from './styles';
+import { Conatiner, Box, Header, LogoIcon } from './styles';
 import logo from './logo-cureety.svg';
 
 class App extends React.Component {
@@ -53,7 +53,17 @@ class App extends React.Component {
   render() {
     const { effects } = this.state;
     if (effects === null) {
-      return <Conatiner>Loading...</Conatiner>;
+      return (
+        <Conatiner
+          style={{
+            backgroundColor: 'rgb(96, 187, 160)',
+            justifyContent: 'center',
+          }}
+        >
+          <LogoIcon src={logo} alt="logo" />
+          Loading...
+        </Conatiner>
+      );
     } else {
       const list = effects.map(x => x.label.toLowerCase());
       return (
